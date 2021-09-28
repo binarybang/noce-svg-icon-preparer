@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 import {Command} from 'commander';
-import {ProgramOptions} from "./utils/program-options";
-import {IconSetParser} from "./icon-processing/icon-set-parser";
-import {IconSetWriter} from "./icon-processing/icon-set-writer";
-import {IconCodeGenerator} from "./icon-processing/icon-code-generator";
+import {ProgramOptions} from './utils/program-options';
+import {IconSetParser} from './icon-processing/icon-set-parser';
+import {IconSetWriter} from './icon-processing/icon-set-writer';
+import {IconCodeGenerator} from './icon-processing/icon-code-generator';
 
 async function main() {
   const program = new Command();

@@ -11,5 +11,5 @@ export const log = {
   warn: createLogFunction(chalk.yellow),
   info: createLogFunction(chalk.blue),
   infoSuccess: createLogFunction(chalk.green),
-  debug: verboseOutputEnabled ? createLogFunction(chalk.gray) : () => {}
+  debug: verboseOutputEnabled ? createLogFunction(chalk.gray) : () => {},
 };

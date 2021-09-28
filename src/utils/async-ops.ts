@@ -1,5 +1,5 @@
 export async function asyncMap<T, U>(source: T[], mapper: (item: T) => Promise<U>): Promise<U[]> {
-  return await Promise.all(source.map(mapper));
+  return Promise.all(source.map(mapper));
 }
 
 export async function asyncMapNotNull<T, U>(source: T[], mapper: (item: T) => Promise<U | null>): Promise<U[]> {

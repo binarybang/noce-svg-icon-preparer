@@ -1,7 +1,7 @@
-import {ParsedIconSet} from "./models";
-import {log} from "../utils/logging";
-import fs from "fs/promises";
-import path from "path";
+import {ParsedIconSet} from './models';
+import {log} from '../utils/logging';
+import fs from 'fs/promises';
+import path from 'path';
 
 /**
  * Default prefix for icon type name and exported array name.
@@ -15,13 +15,13 @@ const DEFAULT_ICON_PREFIX = 'Noce';
  * The default value is "Noce".
  */
 function generateIconTypes(iconSets: ParsedIconSet[], globalIconPrefix: string = DEFAULT_ICON_PREFIX) {
-    const iconSetTypes = iconSets.map(ics => generateTypeForIconSet(ics.name, ics.icons.map(i => i.name)));
+  const iconSetTypes = iconSets.map(ics => generateTypeForIconSet(ics.name, ics.icons.map(i => i.name)));
 
-    const iconSetNames = iconSets.map(ics => ics.name);
-    const iconType = generateIconSetType(globalIconPrefix, iconSets.map(ics => ics.name));
-    const iconSetExport = generateIconSetExport(globalIconPrefix, iconSetNames);
+  const iconSetNames = iconSets.map(ics => ics.name);
+  const iconType = generateIconSetType(globalIconPrefix, iconSets.map(ics => ics.name));
+  const iconSetExport = generateIconSetExport(globalIconPrefix, iconSetNames);
 
-    return iconSetTypes.concat([iconType, iconSetExport]).join('\n');
+  return iconSetTypes.concat([iconType, iconSetExport]).join('\n');
 }
 
 /**
@@ -62,7 +62,7 @@ function generateIconSetExport(prefix: string, iconSetNames: string[]) {
  * @param rawPrefix
  */
 function preparePrefixForType(rawPrefix: string): string {
-    return rawPrefix[0].toUpperCase() + rawPrefix.substring(1).toLowerCase();
+  return rawPrefix[0].toUpperCase() + rawPrefix.substring(1).toLowerCase();
 }
 
 /**
@@ -70,7 +70,7 @@ function preparePrefixForType(rawPrefix: string): string {
  * @param rawPrefix
  */
 function preparePrefixForVariable(rawPrefix: string): string {
-    return rawPrefix.toLowerCase();
+  return rawPrefix.toLowerCase();
 }
 
 /**
@@ -79,7 +79,7 @@ function preparePrefixForVariable(rawPrefix: string): string {
  * @param separator
  */
 function makeLiteralString(parts: string[], separator: string) {
-    return parts.map(p => `'${p}'`).join(` ${separator} `);
+  return parts.map(p => `'${p}'`).join(` ${separator} `);
 }
 
 /**
@@ -87,7 +87,7 @@ function makeLiteralString(parts: string[], separator: string) {
  * @param iconSetName
  */
 function generateIconSetTypeName(iconSetName: string) {
-    return preparePrefixForType(iconSetName) + 'IconSet';
+  return preparePrefixForType(iconSetName) + 'IconSet';
 }
 
 export class IconCodeGenerator {
@@ -97,9 +97,9 @@ export class IconCodeGenerator {
   public async writeGeneratedCodeToFile(iconSets: ParsedIconSet[], globalIconPrefix: string = DEFAULT_ICON_PREFIX) {
     log.info('Generating type declarations and exports for icon sets...');
     const generatedCode = generateIconTypes(iconSets, globalIconPrefix);
-    log.info('Saving type declarations and exports for icon sets...');
+    log.debug('Saving type declarations and exports for icon sets...');
     const fileFullName = path.join(this.destinationDirectory, this.destinationFile);
-    await fs.writeFile(fileFullName, generatedCode, {encoding: 'utf-8'});
+    await fs.writeFile(fileFullName, generatedCode, { encoding: 'utf-8' });
     log.info('Saved type declarations and exports for icon sets');
   }
 }
