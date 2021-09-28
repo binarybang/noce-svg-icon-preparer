@@ -1,7 +1,7 @@
 export interface ProgramOptions {
-  inputDirectory: string;
-  iconOutputDirectory: string;
-  codeOutputDirectory: string;
+  inputDir: string;
+  iconOutputDir: string;
+  codeOutputDir: string;
   codeOutputFile: string;
   globalIconPrefix: string;
 }
