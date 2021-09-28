@@ -30,9 +30,9 @@ function generateIconTypes(iconSets: ParsedIconSet[], globalIconPrefix: string =
  * @param iconSetNames Names of icon sets
  */
 function generateIconSetType(prefix: string, iconSetNames: string[]): string {
-    const preparedPrefix = preparePrefixForType(prefix);
-    const iconSetTypes = iconSetNames.map(generateIconSetTypeName);
-    return `export type ${preparedPrefix}Icon = ${makeLiteralString(iconSetTypes, '|')}`;
+  const preparedPrefix = preparePrefixForType(prefix);
+  const iconSetTypes = iconSetNames.map(generateIconSetTypeName);
+  return `export type ${preparedPrefix}Icon = ${makeLiteralString(iconSetTypes, '|')};`;
 }
 
 /**
@@ -41,10 +41,10 @@ function generateIconSetType(prefix: string, iconSetNames: string[]): string {
  * @param iconNames Names of all icons in the set.
  */
 function generateTypeForIconSet(iconSetName: string, iconNames: string[]): string {
-    const iconSetType = generateIconSetTypeName(iconSetName);
-    const iconNamePrefix = iconSetName.toLowerCase();
-    const preparedIconNames = iconNames.map(n => `${iconNamePrefix}/${n}`);
-    return `export type ${iconSetType} = ${makeLiteralString(preparedIconNames, '|')}`;
+  const iconSetType = generateIconSetTypeName(iconSetName);
+  const iconNamePrefix = iconSetName.toLowerCase();
+  const preparedIconNames = iconNames.map(n => `${iconNamePrefix}/${n}`);
+  return `export type ${iconSetType} = ${makeLiteralString(preparedIconNames, '|')};`;
 }
 
 /**
@@ -53,8 +53,8 @@ function generateTypeForIconSet(iconSetName: string, iconNames: string[]): strin
  * @param iconSetNames Icon set names to include in the exported array.
  */
 function generateIconSetExport(prefix: string, iconSetNames: string[]) {
-    const preparedPrefix = preparePrefixForVariable(prefix);
-    return `export const ${preparedPrefix}IconSets = [${makeLiteralString(iconSetNames, ',')}]`;
+  const preparedPrefix = preparePrefixForVariable(prefix);
+  return `export const ${preparedPrefix}IconSets = [${makeLiteralString(iconSetNames, ',')}];`;
 }
 
 /**
