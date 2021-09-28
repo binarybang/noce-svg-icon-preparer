@@ -1,9 +1,13 @@
-import * as chalk from 'chalk';
+import chalk from 'chalk';
+
+function createLogFunction(formatter: (msg: string) => string) {
+  return (msg: string) => console.log(formatter(msg));
+}
 
 export const log = {
-  error: chalk.red,
-  warn: chalk.yellow,
-  info: chalk.blue,
-  infoSuccess: chalk.green,
-  debug: chalk.gray
+  error: createLogFunction(chalk.red),
+  warn: createLogFunction(chalk.yellow),
+  info: createLogFunction(chalk.blue),
+  infoSuccess: createLogFunction(chalk.green),
+  debug: createLogFunction(chalk.gray)
 };
