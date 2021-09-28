@@ -12,6 +12,7 @@
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
     "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-typescript": "^14.0.0",
     "typescript": "^4.4.3"
   },
@@ -22,7 +23,9 @@
     "build": "yarn run build:dev",
     "build:dev": "yarn run version:output && tsc -p tsconfig.dev.json",
     "build:prod": "yarn run version:output && tsc -p tsconfig.prod.json",
-    "version:output": "node scripts/extract-pkg-info.js"
+    "version:output": "node scripts/extract-pkg-info.js",
+    "lint": "yarn run eslint .",
+    "lint:fix": "yarn run eslint . --fix"
   },
   "bin": {
     "prepare-icons": "./dist/index.js"
