@@ -11,7 +11,7 @@ async function scanSvgIcons(iconDirPath: string): Promise<IconDirData | null> {
     const dirContents = await fs.readdir(iconDirPath);
     const svgFiles = await asyncFilter(dirContents, checkIfSvgFile);
     return {
-      name: path.dirname(iconDirPath),
+      name: path.basename(iconDirPath),
       path: iconDirPath,
       svgFilePaths: svgFiles
     };
@@ -56,18 +56,20 @@ export class IconSetParser {
 
     private async scanRootDirectory(): Promise<IconDirData[]> {
         log.debug("Checking validity of icon root directory...");
+        const {iconRootDirectory} = this;
 
-        const rootDirIsValid = checkIfExistingDirectory(this.iconRootDirectory);
+        const rootDirIsValid = checkIfExistingDirectory(iconRootDirectory);
         if (!rootDirIsValid) {
-            throw new IconPreparatorError(`Invalid icon root dir: ${this.iconRootDirectory}`);
+            throw new IconPreparatorError(`Invalid icon root dir: ${iconRootDirectory}`);
         }
 
         log.info("Scanning directory for icon sets...");
 
-        const rootDirContents = await fs.readdir(this.iconRootDirectory);
+        const rootDirContents = await fs.readdir(iconRootDirectory);
         log.debug(`Found ${rootDirContents.length} entries in icon root directory`);
+        const rootDirFilePaths = rootDirContents.map(e => path.join(iconRootDirectory, e));
 
-        const iconDirs = await asyncMapNotNull(rootDirContents, scanSvgIcons);
+        const iconDirs = await asyncMapNotNull(rootDirFilePaths, scanSvgIcons);
         const totalIconCount = iconDirs.reduce((s, e) => e.svgFilePaths.length + s, 0);
 
         log.info(`Found ${iconDirs.length} icon sets, ${totalIconCount} icons in total`);
