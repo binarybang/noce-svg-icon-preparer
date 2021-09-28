@@ -7,6 +7,25 @@ import {JSDOM} from 'jsdom';
 import {PACKAGE_NAME, PACKAGE_VERSION} from '../utils/pkg-constants';
 import {checkIfExistingDirectory} from '../utils/file-checks';
 
+function convertIconToSymbol(icon: ParsedIcon) {
+  const iconDom = new JSDOM(icon.content);
+  const iconDoc = iconDom.window.document;
+  const svgRoot = iconDoc.body.getElementsByTagName('svg')[0];
+  const iconViewBox = svgRoot.getAttribute('viewBox');
+  if (iconViewBox === null) {
+    log.warn(`Icon [${icon.name}] is missing a viewBox attribute`);
+    return null;
+  }
+
+  const symbolElement = iconDoc.createElementNS('http://www.w3.org/2000/svg', 'symbol');
+  symbolElement.setAttribute('id', icon.name);
+  symbolElement.setAttribute('viewBox', iconViewBox);
+  for (const child of [].slice.call(svgRoot.children)) {
+    symbolElement.appendChild(child);
+  }
+
+  return symbolElement;
+}
 
 async function writeIconSetToFile(iconSet: ParsedIconSet, destDir: string) {
   const iconSetDom = new JSDOM();
@@ -26,26 +45,6 @@ async function writeIconSetToFile(iconSet: ParsedIconSet, destDir: string) {
   await fs.writeFile(iconSetFile, svgRoot.outerHTML, {
     encoding: 'utf-8',
   });
-}
-
-function convertIconToSymbol(icon: ParsedIcon) {
-  const iconDom = new JSDOM(icon.content);
-  const iconDoc = iconDom.window.document;
-  const svgRoot = iconDoc.body.getElementsByTagName('svg')[0];
-  const iconViewBox = svgRoot.getAttribute('viewBox');
-  if (iconViewBox === null) {
-    log.warn(`Icon [${icon.name}] is missing a viewBox attribute`);
-    return null;
-  }
-
-  const symbolElement = iconDoc.createElementNS('http://www.w3.org/2000/svg', 'symbol');
-  symbolElement.setAttribute('id', icon.name);
-  symbolElement.setAttribute('viewBox', iconViewBox);
-  for (const child of [].slice.call(svgRoot.children)) {
-    symbolElement.appendChild(child);
-  }
-
-  return symbolElement;
 }
 
 

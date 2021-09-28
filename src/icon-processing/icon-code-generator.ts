@@ -4,60 +4,6 @@ import fs from 'fs/promises';
 import path from 'path';
 
 /**
- * Default prefix for icon type name and exported array name.
- */
-const DEFAULT_ICON_PREFIX = 'Noce';
-
-/**
- * Generates declarations and exports for the specified icon sets for use in TS code.
- * @param iconSets Icon set data.
- * @param globalIconPrefix Prefix for encompassing icon type and export variable.
- * The default value is "Noce".
- */
-function generateIconTypes(iconSets: ParsedIconSet[], globalIconPrefix: string = DEFAULT_ICON_PREFIX) {
-  const iconSetTypes = iconSets.map(ics => generateTypeForIconSet(ics.name, ics.icons.map(i => i.name)));
-
-  const iconSetNames = iconSets.map(ics => ics.name);
-  const iconType = generateIconSetType(globalIconPrefix, iconSets.map(ics => ics.name));
-  const iconSetExport = generateIconSetExport(globalIconPrefix, iconSetNames);
-
-  return iconSetTypes.concat([iconType, iconSetExport]).join('\n');
-}
-
-/**
- * Generates declaration for union type <prefix>Icon that includes icons from all processed icon sets.
- * @param prefix Prefix for icon type name
- * @param iconSetNames Names of icon sets
- */
-function generateIconSetType(prefix: string, iconSetNames: string[]): string {
-  const preparedPrefix = preparePrefixForType(prefix);
-  const iconSetTypes = iconSetNames.map(generateIconSetTypeName);
-  return `export type ${preparedPrefix}Icon = ${makeLiteralString(iconSetTypes, '|')};`;
-}
-
-/**
- * Generates declaration for icon set type.
- * @param iconSetName Icon set name.
- * @param iconNames Names of all icons in the set.
- */
-function generateTypeForIconSet(iconSetName: string, iconNames: string[]): string {
-  const iconSetType = generateIconSetTypeName(iconSetName);
-  const iconNamePrefix = iconSetName.toLowerCase();
-  const preparedIconNames = iconNames.map(n => `${iconNamePrefix}/${n}`);
-  return `export type ${iconSetType} = ${makeLiteralString(preparedIconNames, '|')};`;
-}
-
-/**
- * Generates exported array <prefix>IconSets of all icon set names.
- * @param prefix Prefix for the array's name..
- * @param iconSetNames Icon set names to include in the exported array.
- */
-function generateIconSetExport(prefix: string, iconSetNames: string[]) {
-  const preparedPrefix = preparePrefixForVariable(prefix);
-  return `export const ${preparedPrefix}IconSets = [${makeLiteralString(iconSetNames, ',')}];`;
-}
-
-/**
  * Prepares prefix for use in a type name.
  * @param rawPrefix
  */
@@ -88,6 +34,60 @@ function makeLiteralString(parts: string[], separator: string) {
  */
 function generateIconSetTypeName(iconSetName: string) {
   return preparePrefixForType(iconSetName) + 'IconSet';
+}
+
+/**
+ * Default prefix for icon type name and exported array name.
+ */
+const DEFAULT_ICON_PREFIX = 'Noce';
+
+/**
+ * Generates declaration for union type <prefix>Icon that includes icons from all processed icon sets.
+ * @param prefix Prefix for icon type name
+ * @param iconSetNames Names of icon sets
+ */
+function generateIconSetType(prefix: string, iconSetNames: string[]): string {
+  const preparedPrefix = preparePrefixForType(prefix);
+  const iconSetTypes = iconSetNames.map(generateIconSetTypeName);
+  return `export type ${preparedPrefix}Icon = ${makeLiteralString(iconSetTypes, '|')};`;
+}
+
+/**
+ * Generates exported array <prefix>IconSets of all icon set names.
+ * @param prefix Prefix for the array's name..
+ * @param iconSetNames Icon set names to include in the exported array.
+ */
+function generateIconSetExport(prefix: string, iconSetNames: string[]) {
+  const preparedPrefix = preparePrefixForVariable(prefix);
+  return `export const ${preparedPrefix}IconSets = [${makeLiteralString(iconSetNames, ',')}];`;
+}
+
+/**
+ * Generates declaration for icon set type.
+ * @param iconSetName Icon set name.
+ * @param iconNames Names of all icons in the set.
+ */
+function generateTypeForIconSet(iconSetName: string, iconNames: string[]): string {
+  const iconSetType = generateIconSetTypeName(iconSetName);
+  const iconNamePrefix = iconSetName.toLowerCase();
+  const preparedIconNames = iconNames.map(n => `${iconNamePrefix}/${n}`);
+  return `export type ${iconSetType} = ${makeLiteralString(preparedIconNames, '|')};`;
+}
+
+/**
+ * Generates declarations and exports for the specified icon sets for use in TS code.
+ * @param iconSets Icon set data.
+ * @param globalIconPrefix Prefix for encompassing icon type and export variable.
+ * The default value is "Noce".
+ */
+function generateIconTypes(iconSets: ParsedIconSet[], globalIconPrefix: string = DEFAULT_ICON_PREFIX) {
+  const iconSetTypes = iconSets.map(ics => generateTypeForIconSet(ics.name, ics.icons.map(i => i.name)));
+
+  const iconSetNames = iconSets.map(ics => ics.name);
+  const iconType = generateIconSetType(globalIconPrefix, iconSets.map(ics => ics.name));
+  const iconSetExport = generateIconSetExport(globalIconPrefix, iconSetNames);
+
+  return iconSetTypes.concat([iconType, iconSetExport]).join('\n');
 }
 
 export class IconCodeGenerator {

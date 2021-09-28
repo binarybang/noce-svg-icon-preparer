@@ -20,16 +20,6 @@ async function scanSvgIcons(iconDirPath: string): Promise<IconDirData | null> {
   }
 }
 
-async function extractIconDir(iconDirData: IconDirData): Promise<ParsedIconSet> {
-  log.info(`Parsing icon set ${iconDirData.name}`);
-  const icons = await asyncMap(iconDirData.svgFilePaths, extractIconFromFile);
-  log.info(`Parsed icon set ${iconDirData.name}`);
-  return {
-    name: iconDirData.name,
-    icons,
-  };
-}
-
 async function extractIconFromFile(svgFilePath: string): Promise<ParsedIcon> {
   const content = await fs.readFile(svgFilePath, {
     encoding: 'utf-8',
@@ -38,6 +28,16 @@ async function extractIconFromFile(svgFilePath: string): Promise<ParsedIcon> {
   return {
     name: path.basename(svgFilePath, path.extname(svgFilePath)),
     content,
+  };
+}
+
+async function extractIconDir(iconDirData: IconDirData): Promise<ParsedIconSet> {
+  log.info(`Parsing icon set ${iconDirData.name}`);
+  const icons = await asyncMap(iconDirData.svgFilePaths, extractIconFromFile);
+  log.info(`Parsed icon set ${iconDirData.name}`);
+  return {
+    name: iconDirData.name,
+    icons,
   };
 }
 

@@ -1,9 +1,9 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-export async function checkIfExistingDirectory(path: string): Promise<boolean> {
+export async function checkIfExistingDirectory(dirPath: string): Promise<boolean> {
   try {
-    const stats = await fs.stat(path);
+    const stats = await fs.stat(dirPath);
     return stats?.isDirectory() === true;
   } catch (e) {
     return false;

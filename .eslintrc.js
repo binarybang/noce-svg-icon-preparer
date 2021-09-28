@@ -5,10 +5,13 @@ module.exports = {
     '@typescript-eslint',
   ],
   extends: [
-    'plugin:@typescript-eslint/recommended'
+    'plugin:import/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'airbnb-typescript/base'
   ],
   rules: {
-    "@typescript-eslint/no-empty-function": ["error", { "allow": ["arrowFunctions"] }]
+    "@typescript-eslint/no-empty-function": ["error", { "allow": ["arrowFunctions"] }],
+    "@typescript-eslint/object-curly-spacing": "off"
   },
   ignorePatterns: [
     '.eslintrc.js',
