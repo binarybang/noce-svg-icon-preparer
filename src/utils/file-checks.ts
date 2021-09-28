@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-export async function checkIfExistingDirectory(path: string) {
+export async function checkIfExistingDirectory(path: string): Promise<boolean> {
   try {
     const stats = await fs.stat(path);
     return stats?.isDirectory() === true;
@@ -11,7 +11,7 @@ export async function checkIfExistingDirectory(path: string) {
 
 }
 
-export async function checkIfSvgFile(filePath: string) {
+export async function checkIfSvgFile(filePath: string): Promise<boolean> {
   try {
     const stats = await fs.stat(filePath);
     return stats && stats.isFile() && path.extname(filePath) === '.svg';

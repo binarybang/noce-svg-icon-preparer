@@ -5,8 +5,16 @@ module.exports = {
     '@typescript-eslint',
   ],
   extends: [
-    'eslint:recommended',
-    'airbnb-typescript'
+    'plugin:@typescript-eslint/recommended'
+  ],
+  rules: {
+    "@typescript-eslint/no-empty-function": ["error", { "allow": ["arrowFunctions"] }]
+  },
+  ignorePatterns: [
+    '.eslintrc.js',
+    'dist',
+    'node_modules',
+    'scripts'
   ],
   parserOptions: {
     project: './tsconfig.prod.json'

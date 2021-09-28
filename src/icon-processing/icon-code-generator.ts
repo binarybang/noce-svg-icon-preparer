@@ -94,7 +94,7 @@ export class IconCodeGenerator {
   constructor(private destinationDirectory: string, private destinationFile: string) {
   }
 
-  public async writeGeneratedCodeToFile(iconSets: ParsedIconSet[], globalIconPrefix: string = DEFAULT_ICON_PREFIX) {
+  public async writeGeneratedCodeToFile(iconSets: ParsedIconSet[], globalIconPrefix: string = DEFAULT_ICON_PREFIX): Promise<void> {
     log.info('Generating type declarations and exports for icon sets...');
     const generatedCode = generateIconTypes(iconSets, globalIconPrefix);
     log.debug('Saving type declarations and exports for icon sets...');

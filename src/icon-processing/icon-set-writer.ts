@@ -54,7 +54,7 @@ export class IconSetWriter {
   constructor(private destinationDirectory: string) {
   }
 
-  public async writeIconSetsToFile(iconSets: ParsedIconSet[]) {
+  public async writeIconSetsToFile(iconSets: ParsedIconSet[]): Promise<void> {
     const { destinationDirectory } = this;
     const destDirIsValid = checkIfExistingDirectory(destinationDirectory);
     if (!destDirIsValid) {
