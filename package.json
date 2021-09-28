@@ -5,6 +5,7 @@
   "license": "MIT",
   "description": "A utility to prepare SVG icons for use in icon set components.",
   "devDependencies": {
+    "@tsconfig/node14": "^1.0.1",
     "@types/commander": "^2.12.2",
     "@types/jsdom": "^16.2.13",
     "@types/node": "^16.10.1",
@@ -18,7 +19,9 @@
     "./dist/**/*"
   ],
   "scripts": {
-    "build": "yarn run version:output && tsc",
+    "build": "yarn run build:dev",
+    "build:dev": "yarn run version:output && tsc -p tsconfig.dev.json",
+    "build:prod": "yarn run version:output && tsc -p tsconfig.prod.json",
     "version:output": "node scripts/extract-pkg-info.js"
   },
   "bin": {
