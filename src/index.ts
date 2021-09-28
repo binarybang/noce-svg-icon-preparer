@@ -15,7 +15,8 @@ async function main() {
     .requiredOption('-iod, --icon-output-dir <directory>', 'Path to directory that will contain generated SVG files')
     .requiredOption('-cod, --code-output-dir <directory>', 'Path to directory that will contain generated TS types and exports')
     .option('-cof, --code-output-file <file-name>', 'Name of the file that will contain generated TS types and exports', 'icon-sets.ts')
-    .option('-gip, --global-icon-prefix <prefix>', 'Prefix for usage in type names and export variable names', 'Noce');
+    .option('-gip, --global-icon-prefix <prefix>', 'Prefix for usage in type names and export variable names', 'Noce')
+    .option('-v, ---verbose', 'Enables verbose log output');
 
   await program.parseAsync(process.argv);
 

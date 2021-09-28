@@ -64,9 +64,9 @@ export class IconSetWriter {
 
     log.info('Writing icon sets...');
     for (const iconSet of iconSets) {
-      log.info(`Writing icon set ${iconSet.name}`);
+      log.debug(`Writing icon set ${iconSet.name} to ${destinationDirectory}`);
       await writeIconSetToFile(iconSet, destinationDirectory);
-      log.info(`Written icon set ${iconSet.name}`);
+      log.debug(`Written icon set ${iconSet.name} to ${destinationDirectory}`);
     }
     log.info(`Processed ${iconSets.length} icon sets`);
 
