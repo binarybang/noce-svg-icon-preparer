@@ -1,7 +1,7 @@
 {
   "name": "@noce-ui/svg-icon-converter",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "description": "A utility to prepare SVG icons for use in icon set components.",
   "devDependencies": {
@@ -16,17 +16,18 @@
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-typescript": "^14.0.0",
     "eslint-plugin-import": "^2.24.2",
+    "rimraf": "^3.0.2",
     "standard-version": "^9.3.1",
     "typescript": "^4.4.3"
   },
   "files": [
-    "./dist/**/*"
+    "dist"
   ],
   "scripts": {
     "build": "yarn run build:dev",
-    "build:dev": "yarn run version:output && tsc -p tsconfig.dev.json",
-    "build:prod": "yarn run version:output && tsc -p tsconfig.prod.json",
-    "version:output": "node scripts/extract-pkg-info.js",
+    "build:clean": "yarn run rimraf ./dist",
+    "build:dev": "yarn run build:clean && tsc -p tsconfig.dev.json",
+    "build:prod": "yarn run build:clean && tsc -p tsconfig.prod.json",
     "lint": "yarn run eslint .",
     "lint:fix": "yarn run eslint . --fix",
     "release:major": "yarn run standard-version --release-as major",
@@ -34,7 +35,7 @@
     "release:patch": "yarn run standard-version --release-as patch",
     "release:first": "yarn run standard-version --first-release",
     "release:dry-run": "yarn run standard-version --dry-run --first-release",
-    "publish": "yarn run build:prod && yarn publish"
+    "prepublish": "yarn run build:prod"
   },
   "bin": {
     "noce-convert-svg-icons": "./dist/index.js"
