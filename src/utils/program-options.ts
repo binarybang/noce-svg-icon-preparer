@@ -4,4 +4,5 @@ export interface ProgramOptions {
   codeOutputDir: string;
   codeOutputFile: string;
   globalIconPrefix: string;
+  prettyPrint: boolean;
 }

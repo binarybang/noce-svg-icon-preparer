@@ -16,6 +16,7 @@ async function main() {
     .requiredOption('-cod, --code-output-dir <directory>', 'Path to directory that will contain generated TS types and exports')
     .option('-cof, --code-output-file <file-name>', 'Name of the file that will contain generated TS types and exports', 'icon-sets.ts')
     .option('-gip, --global-icon-prefix <prefix>', 'Prefix for usage in type names and export variable names', 'Noce')
+    .option('-pp, --pretty-print', 'Specifies whether to pretty-print SVG output', true)
     .option('-v, ---verbose', 'Enables verbose log output');
 
   await program.parseAsync(process.argv);
@@ -25,7 +26,7 @@ async function main() {
   const iconParser = new IconSetParser(options.inputDir);
   const iconSets = await iconParser.parseIconSets();
 
-  const iconWriter = new IconSetWriter(options.iconOutputDir);
+  const iconWriter = new IconSetWriter(options.iconOutputDir, options.prettyPrint);
   await iconWriter.writeIconSetsToFile(iconSets);
 
   const iconCodeGenerator = new IconCodeGenerator(options.codeOutputDir, options.codeOutputFile);
