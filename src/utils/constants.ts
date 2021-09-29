@@ -1,1 +1,4 @@
-export const APP_NAME = 'Noce Icon Prepator';
+export const LICENSE_FILE_NAMES: string[] = [
+  'LICENSE.txt',
+  'LICENSE',
+];

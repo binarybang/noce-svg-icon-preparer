@@ -11,5 +11,6 @@ export interface ParsedIcon {
 
 export interface ParsedIconSet {
   name: string;
+  license: string | null;
   icons: ParsedIcon[];
 }

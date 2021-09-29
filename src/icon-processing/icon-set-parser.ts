@@ -4,12 +4,14 @@ import {log} from '../utils/logging';
 import {IconDirData, ParsedIcon, ParsedIconSet} from './models';
 import {IconPreparatorError} from '../utils/preparator-error';
 import {asyncFilter, asyncMap, asyncMapNotNull} from '../utils/async-ops';
-import {directoryExists, fileExistsAndIsSvg} from '../utils/file-checks';
+import {directoryExists, fileExists, fileExistsAndIsSvg} from '../utils/file-checks';
+import {LICENSE_FILE_NAMES} from '../utils/constants';
 
 async function scanSvgIcons(iconDirPath: string): Promise<IconDirData | null> {
   if (await directoryExists(iconDirPath)) {
     const dirContents = (await fs.readdir(iconDirPath)).map(name => path.join(iconDirPath, name));
     const svgFiles = await asyncFilter(dirContents, fileExistsAndIsSvg);
+
     return {
       name: path.basename(iconDirPath),
       path: iconDirPath,
@@ -31,12 +33,26 @@ async function extractIconFromFile(svgFilePath: string): Promise<ParsedIcon> {
   };
 }
 
+async function getLicenseContent(dirPath: string): Promise<string | null> {
+  for (const name of LICENSE_FILE_NAMES) {
+    const licenseFilePath = path.join(dirPath, name);
+    if (await fileExists(licenseFilePath)) {
+      return fs.readFile(licenseFilePath, {encoding: 'utf-8'});
+    }
+  }
+  return null;
+}
+
 async function extractIconDir(iconDirData: IconDirData): Promise<ParsedIconSet> {
   log.info(`Parsing icon set ${iconDirData.name}`);
+
   const icons = await asyncMap(iconDirData.svgFilePaths, extractIconFromFile);
+  const license = await getLicenseContent(iconDirData.path);
+
   log.info(`Parsed icon set ${iconDirData.name}`);
   return {
     name: iconDirData.name,
+    license,
     icons,
   };
 }
