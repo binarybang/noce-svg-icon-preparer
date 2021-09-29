@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/binarybang/noce-icon-preparator/compare/v0.1.0...v0.1.1) (2021-09-29)
+
+
+### Bug Fixes
+
+* correct pkg name and corresponding references ([cf378e5](https://github.com/binarybang/noce-icon-preparator/commit/cf378e5dec2a57603341e72625d46fcb1143d13f))
+
 ## 0.1.0 (2021-09-29)
 
 
