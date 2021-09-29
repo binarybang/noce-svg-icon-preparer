@@ -4,12 +4,12 @@ import {log} from '../utils/logging';
 import {IconDirData, ParsedIcon, ParsedIconSet} from './models';
 import {IconPreparatorError} from '../utils/preparator-error';
 import {asyncFilter, asyncMap, asyncMapNotNull} from '../utils/async-ops';
-import {checkIfExistingDirectory, checkIfSvgFile} from '../utils/file-checks';
+import {directoryExists, fileExistsAndIsSvg} from '../utils/file-checks';
 
 async function scanSvgIcons(iconDirPath: string): Promise<IconDirData | null> {
-  if (await checkIfExistingDirectory(iconDirPath)) {
+  if (await directoryExists(iconDirPath)) {
     const dirContents = (await fs.readdir(iconDirPath)).map(name => path.join(iconDirPath, name));
-    const svgFiles = await asyncFilter(dirContents, checkIfSvgFile);
+    const svgFiles = await asyncFilter(dirContents, fileExistsAndIsSvg);
     return {
       name: path.basename(iconDirPath),
       path: iconDirPath,
@@ -66,7 +66,7 @@ export class IconSetParser {
     log.debug('Checking validity of icon root directory...');
     const { iconRootDirectory } = this;
 
-    const rootDirIsValid = checkIfExistingDirectory(iconRootDirectory);
+    const rootDirIsValid = directoryExists(iconRootDirectory);
     if (!rootDirIsValid) {
       throw new IconPreparatorError(`Invalid icon root dir: ${iconRootDirectory}`);
     }

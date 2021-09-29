@@ -5,7 +5,7 @@ import {IconPreparatorError} from '../utils/preparator-error';
 import {log} from '../utils/logging';
 import {JSDOM} from 'jsdom';
 import {PACKAGE_NAME, PACKAGE_VERSION} from '../utils/pkg-constants';
-import {checkIfExistingDirectory} from '../utils/file-checks';
+import {directoryExists} from '../utils/file-checks';
 
 function convertIconToSymbol(icon: ParsedIcon) {
   const iconDom = new JSDOM(icon.content);
@@ -55,7 +55,7 @@ export class IconSetWriter {
 
   public async writeIconSetsToFile(iconSets: ParsedIconSet[]): Promise<void> {
     const { destinationDirectory } = this;
-    const destDirIsValid = checkIfExistingDirectory(destinationDirectory);
+    const destDirIsValid = directoryExists(destinationDirectory);
     if (!destDirIsValid) {
       throw new IconPreparatorError(`Invalid destination directory for icons: ${destinationDirectory}`);
     }
