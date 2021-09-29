@@ -1,2 +1,2 @@
-export const PACKAGE_NAME = '@noce-ui/svg-icon-converter';
-export const PACKAGE_VERSION = '0.1.0';
+export const PACKAGE_NAME = 'noce-svg-icon-preparer';
+export const PACKAGE_VERSION = '0.1.1';
