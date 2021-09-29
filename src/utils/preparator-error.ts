@@ -1,1 +1,1 @@
-export class IconPreparatorError extends Error {}
+export class IconConverterError extends Error {}
