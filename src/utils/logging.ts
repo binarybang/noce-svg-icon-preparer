@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 
 function createLogFunction(formatter: (msg: string) => string) {
-  return (msg: string, e?: unknown) => console.log(formatter(msg), e);
+  return (msg: string, e?: unknown) => e ? console.log(formatter(msg), e) : console.log(formatter(msg));
 }
 
 const verboseOutputEnabled = process.argv.includes('-v') || process.argv.includes('--verbose');
