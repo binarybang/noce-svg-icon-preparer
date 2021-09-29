@@ -5,7 +5,7 @@ import {ProgramOptions} from './utils/program-options';
 import {IconSetParser} from './icon-processing/icon-set-parser';
 import {IconSetWriter} from './icon-processing/icon-set-writer';
 import {IconCodeGenerator} from './icon-processing/icon-code-generator';
-import {IconConverterError} from './utils/preparator-error';
+import {IconPreparerError} from './utils/preparer-error';
 import {log} from './utils/logging';
 
 async function runProgram() {
@@ -40,10 +40,10 @@ async function main() {
   try {
     await runProgram();
   } catch (e) {
-    if (e instanceof IconConverterError) {
-      log.error('Error occurred while converting icons', e);
+    if (e instanceof IconPreparerError) {
+      log.error('Error occurred while preparing icons', e);
     } else {
-      log.error('Unknown error occurred while converting icons', e);
+      log.error('Unknown error occurred while preparing icons', e);
     }
     process.exit(1);
   }

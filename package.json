@@ -1,5 +1,5 @@
 {
-  "name": "@noce-ui/svg-icon-converter",
+  "name": "noce-svg-icon-preparer",
   "version": "0.1.0",
   "main": "dist/index.js",
   "license": "MIT",
@@ -35,10 +35,10 @@
     "release:patch": "yarn run standard-version --release-as patch",
     "release:first": "yarn run standard-version --first-release",
     "release:dry-run": "yarn run standard-version --dry-run --first-release",
-    "prepublish": "yarn run build:prod"
+    "prepublishOnly": "yarn run build:prod"
   },
   "bin": {
-    "noce-convert-svg-icons": "./dist/index.js"
+    "noce-prepare-svg-icons": "./dist/index.js"
   },
   "dependencies": {
     "chalk": "^4.1.2",

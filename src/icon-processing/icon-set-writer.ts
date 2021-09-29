@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import {html as beautifyHtml} from 'js-beautify';
 import {ParsedIcon, ParsedIconSet} from './models';
-import {IconConverterError} from '../utils/preparator-error';
+import {IconPreparerError} from '../utils/preparer-error';
 import {log} from '../utils/logging';
 import {JSDOM} from 'jsdom';
 import {PACKAGE_NAME, PACKAGE_VERSION} from '../utils/pkg-constants';
@@ -68,7 +68,7 @@ export class IconSetWriter {
     const { destinationDirectory, prettyPrint } = this;
     const destDirIsValid = await directoryExists(destinationDirectory);
     if (!destDirIsValid) {
-      throw new IconConverterError(`Invalid destination directory for icons: ${destinationDirectory}`);
+      throw new IconPreparerError(`Invalid destination directory for icons: ${destinationDirectory}`);
     }
 
     log.info('Writing icon sets...');

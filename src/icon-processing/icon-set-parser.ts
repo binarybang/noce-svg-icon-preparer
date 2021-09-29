@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import {log} from '../utils/logging';
 import {IconDirData, ParsedIcon, ParsedIconSet} from './models';
-import {IconConverterError} from '../utils/preparator-error';
+import {IconPreparerError} from '../utils/preparer-error';
 import {asyncFilter, asyncMap, asyncMapNotNull} from '../utils/async-ops';
 import {directoryExists, fileExists, fileExistsAndIsSvg} from '../utils/file-checks';
 import {LICENSE_FILE_NAMES} from '../utils/constants';
@@ -84,7 +84,7 @@ export class IconSetParser {
 
     const rootDirIsValid = await directoryExists(iconRootDirectory);
     if (!rootDirIsValid) {
-      throw new IconConverterError(`Invalid icon root dir: ${iconRootDirectory}`);
+      throw new IconPreparerError(`Invalid icon root dir: ${iconRootDirectory}`);
     }
 
     log.info('Scanning directory for icon sets...');
