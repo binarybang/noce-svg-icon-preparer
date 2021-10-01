@@ -15,11 +15,12 @@ module.exports = {
   },
   ignorePatterns: [
     '.eslintrc.js',
+    'jest.config.js',
     'dist',
     'node_modules',
     'scripts'
   ],
   parserOptions: {
-    project: './tsconfig.prod.json'
+    project: './tsconfig.lint.json'
   }
 };
