@@ -35,6 +35,7 @@
     "lint": "yarn run eslint . --debug",
     "lint:fix": "yarn run eslint . --fix",
     "test": "yarn jest",
+    "test:coverage": "yarn jest --coverage",
     "release:major": "yarn run standard-version --release-as major",
     "release:minor": "yarn run standard-version --release-as minor",
     "release:patch": "yarn run standard-version --release-as patch",
