@@ -11,7 +11,8 @@ module.exports = {
   ],
   rules: {
     "@typescript-eslint/no-empty-function": ["error", { "allow": ["arrowFunctions"] }],
-    "@typescript-eslint/object-curly-spacing": "off"
+    "@typescript-eslint/object-curly-spacing": "off",
+    "@typescript-eslint/comma-dangle": "off"
   },
   ignorePatterns: [
     '.eslintrc.js',

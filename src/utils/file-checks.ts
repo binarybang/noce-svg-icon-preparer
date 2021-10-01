@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+import {promises as fs} from 'fs';
 import path from 'path';
 
 export async function directoryExists(dirPath: string): Promise<boolean> {
@@ -8,7 +8,6 @@ export async function directoryExists(dirPath: string): Promise<boolean> {
   } catch (e) {
     return false;
   }
-
 }
 
 export async function fileExists(filePath: string): Promise<boolean> {
@@ -18,7 +17,6 @@ export async function fileExists(filePath: string): Promise<boolean> {
   } catch (e) {
     return false;
   }
-
 }
 
 export async function fileExistsAndIsSvg(filePath: string): Promise<boolean> {
