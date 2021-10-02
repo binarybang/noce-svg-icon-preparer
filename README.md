@@ -81,7 +81,7 @@ Please see `src/index.ts` to see the latest set of options in case this section 
 
 
 ## Contributing
-This is more of a exercise in making a Node.js CLI utility than a production-ready tool, so while PRs and suggestions
+This is more of an exercise in making a Node.js CLI utility than a production-ready tool, so while PRs and suggestions
 (using issues) are welcome, I don't guarantee I will respond/merge your changes in time.
 
 ## License
