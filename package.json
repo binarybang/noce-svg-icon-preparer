@@ -1,6 +1,6 @@
 {
   "name": "noce-svg-icon-preparer",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "dist/index.js",
   "license": "MIT",
   "description": "A utility to prepare SVG icons for use in icon set components.",
@@ -34,7 +34,7 @@
     "build:clean": "yarn run rimraf ./dist",
     "build:dev": "yarn run build:clean && tsc -p tsconfig.dev.json",
     "build:prod": "yarn run build:clean && tsc -p tsconfig.prod.json",
-    "lint": "yarn run eslint . --debug",
+    "lint": "yarn run eslint .",
     "lint:fix": "yarn run eslint . --fix",
     "test": "yarn jest",
     "test:coverage": "yarn jest --coverage",
