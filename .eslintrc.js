@@ -19,7 +19,8 @@ module.exports = {
     'jest.config.js',
     'dist',
     'node_modules',
-    'scripts'
+    'scripts',
+    'coverage'
   ],
   parserOptions: {
     project: './tsconfig.lint.json'
