@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/binarybang/noce-svg-icon-preparer/compare/v0.1.3...v0.1.4) (2021-10-02)
+
+
+### Bug Fixes
+
+* add sorting by icon name in generated SVG files and TS file. ([fa5d0e7](https://github.com/binarybang/noce-svg-icon-preparer/commit/fa5d0e7b76e92d49a95e30820cba00e9bcbf63d3))
+
 ### [0.1.3](https://github.com/binarybang/noce-svg-icon-preparer/compare/v0.1.2...v0.1.3) (2021-10-02)
 
 ### [0.1.2](https://github.com/binarybang/noce-svg-icon-preparer/compare/v0.1.1...v0.1.2) (2021-09-29)
