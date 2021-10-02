@@ -26,11 +26,11 @@ describe('icon set writer', () => {
         'icons': [
           {
             'name': 'icon1',
-            'content': '<svg viewBox="0 0 10 10"><g></g><svg>'
+            'content': '<svg viewBox="0 0 10 10"><g></g></svg>'
           },
           {
             'name': 'icon2',
-            'content': '<svg><g><rect></rect></g><svg>'
+            'content': '<svg><g><rect></rect></g></svg>'
           }
         ]
       },
@@ -40,15 +40,15 @@ describe('icon set writer', () => {
         'icons': [
           {
             'name': 'icon21',
-            'content': '<svg viewBox="0 0 10 10"><g></g><svg>'
+            'content': '<svg viewBox="0 0 10 10"><g></g></svg>'
           },
           {
             'name': 'icon22',
-            'content': '<svg viewBox="0 0 10 10"><g><rect></rect></g><svg>'
+            'content': '<svg viewBox="0 0 10 10"><g><rect></rect></g></svg>'
           },
           {
             'name': 'icon23',
-            'content': '<svg viewBox="0 0 10 10"><g></g><svg>'
+            'content': '<svg viewBox="0 0 10 10"><g></g></svg>'
           }
         ]
       }

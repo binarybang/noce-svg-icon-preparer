@@ -6,19 +6,19 @@ beforeEach(() => {
   mock({
     'test-input': {
       'mat-test-1': {
-        'icon1.svg': '<svg><g></g><svg>',
-        'icon2.svg': '<svg><g><rect></rect></g><svg>',
+        'icon1.svg': '<svg><g></g></svg>',
+        'icon2.svg': '<svg><g><rect></rect></g></svg>',
         'LICENSE.txt': 'license content'
       },
       'mat-test-2': {
         'icon21.svg': '<svg><g></g><svg>',
-        'icon22.svg': '<svg><g><rect></rect></g><svg>',
-        'icon23.svg': '<svg><g></g><svg>',
+        'icon22.svg': '<svg><g><rect></rect></g></svg>',
+        'icon23.svg': '<svg><g></g></svg>',
         'LICENSE': 'license content'
       },
       'mat-test-3': {
         'icon31.svg': '<svg><g></g><svg>',
-        'icon32.svg': '<svg><g><rect></rect></g><svg>'
+        'icon32.svg': '<svg><g><rect></rect></g></svg>'
       }
     }
   });
@@ -90,7 +90,7 @@ describe('icon set parser', () => {
   test('should have correct icon content', () => {
     return parser.parseIconSets()
       .then(iconSets => {
-        expect(iconSets[0].icons[0].content).toBe('<svg><g></g><svg>');
+        expect(iconSets[0].icons[0].content).toBe('<svg><g></g></svg>');
       });
   });
 });

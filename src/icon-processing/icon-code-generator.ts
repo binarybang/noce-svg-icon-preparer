@@ -2,6 +2,13 @@ import {ParsedIconSet} from './models';
 import {log} from '../utils/logging';
 import fs from 'fs/promises';
 import path from 'path';
+import {directoryExists} from '../utils/file-checks';
+import {IconPreparerError} from '../utils/preparer-error';
+import {JSDOM} from 'jsdom';
+
+function normalizeIconSetName(iconSetName: string) {
+  return iconSetName.replace(/[^a-zA-Z0-9]/g, '');
+}
 
 /**
  * Prepares prefix for use in a type name.
@@ -25,7 +32,7 @@ function preparePrefixForVariable(rawPrefix: string): string {
  * @param separator
  */
 function makeLiteralString(parts: string[], separator: string) {
-  return parts.map(p => `'${p}'`).join(` ${separator} `);
+  return parts.map(p => `'${p}'`).join(separator);
 }
 
 /**
@@ -33,7 +40,7 @@ function makeLiteralString(parts: string[], separator: string) {
  * @param iconSetName
  */
 function generateIconSetTypeName(iconSetName: string) {
-  return preparePrefixForType(iconSetName) + 'IconSet';
+  return preparePrefixForType(normalizeIconSetName(iconSetName)) + 'IconSet';
 }
 
 /**
@@ -49,7 +56,7 @@ const DEFAULT_ICON_PREFIX = 'Noce';
 function generateIconSetType(prefix: string, iconSetNames: string[]): string {
   const preparedPrefix = preparePrefixForType(prefix);
   const iconSetTypes = iconSetNames.map(generateIconSetTypeName);
-  return `export type ${preparedPrefix}Icon = ${makeLiteralString(iconSetTypes, '|')};`;
+  return `export type ${preparedPrefix}Icon = ${makeLiteralString(iconSetTypes, ' | ')};`;
 }
 
 /**
@@ -59,7 +66,7 @@ function generateIconSetType(prefix: string, iconSetNames: string[]): string {
  */
 function generateIconSetExport(prefix: string, iconSetNames: string[]) {
   const preparedPrefix = preparePrefixForVariable(prefix);
-  return `export const ${preparedPrefix}IconSets = [${makeLiteralString(iconSetNames, ',')}];`;
+  return `export const ${preparedPrefix}IconSets = [${makeLiteralString(iconSetNames, ', ')}];`;
 }
 
 /**
@@ -74,6 +81,16 @@ function generateTypeForIconSet(iconSetName: string, iconNames: string[]): strin
   return `export type ${iconSetType} = ${makeLiteralString(preparedIconNames, '|')};`;
 }
 
+function filterValidIconNames(iconSet: ParsedIconSet): string[] {
+  return iconSet.icons
+    .filter(i => {
+      const iconDom = new JSDOM(i.content);
+      const svgRoot = iconDom.window.document.getElementsByTagName('svg');
+      return svgRoot.length === 1 && svgRoot[0].getAttribute('viewBox');
+    })
+    .map(i => i.name);
+}
+
 /**
  * Generates declarations and exports for the specified icon sets for use in TS code.
  * @param iconSets Icon set data.
@@ -81,7 +98,7 @@ function generateTypeForIconSet(iconSetName: string, iconNames: string[]): strin
  * The default value is "Noce".
  */
 function generateIconTypes(iconSets: ParsedIconSet[], globalIconPrefix: string = DEFAULT_ICON_PREFIX) {
-  const iconSetTypes = iconSets.map(ics => generateTypeForIconSet(ics.name, ics.icons.map(i => i.name)));
+  const iconSetTypes = iconSets.map(ics => generateTypeForIconSet(ics.name, filterValidIconNames(ics)));
 
   const iconSetNames = iconSets.map(ics => ics.name);
   const iconType = generateIconSetType(globalIconPrefix, iconSets.map(ics => ics.name));
@@ -90,15 +107,34 @@ function generateIconTypes(iconSets: ParsedIconSet[], globalIconPrefix: string =
   return iconSetTypes.concat([iconType, iconSetExport]).join('\n');
 }
 
+/**
+ * Provides generation of TS types and exports for icon sets.
+ */
 export class IconCodeGenerator {
   constructor(private destinationDirectory: string, private destinationFile: string) {
   }
 
+  /**
+   * Generates TS types and exports for specified icon sets
+   * and writes them to a file set by constructor.
+   * @param iconSets Icon set data.
+   * @param globalIconPrefix Prefix for icon set types and export variable.
+   */
   public async writeGeneratedCodeToFile(iconSets: ParsedIconSet[], globalIconPrefix: string = DEFAULT_ICON_PREFIX): Promise<void> {
+    log.debug('Checking validity of icon root directory...');
+    const { destinationDirectory, destinationFile } = this;
+
+    const destDirIsValid = await directoryExists(destinationDirectory);
+    if (!destDirIsValid) {
+      throw new IconPreparerError(`Invalid output dir: ${destinationDirectory}`);
+    }
+
     log.info('Generating type declarations and exports for icon sets...');
     const generatedCode = generateIconTypes(iconSets, globalIconPrefix);
+
     log.debug('Saving type declarations and exports for icon sets...');
-    const fileFullName = path.join(this.destinationDirectory, this.destinationFile);
+    const fileFullName = path.join(destinationDirectory, destinationFile);
+
     await fs.writeFile(fileFullName, generatedCode, { encoding: 'utf-8' });
     log.info('Saved type declarations and exports for icon sets');
   }
