@@ -64,6 +64,8 @@ async function extractIconDir(iconDirData: IconDirData): Promise<ParsedIconSet> 
   log.info(`Parsing icon set ${iconDirData.name}`);
 
   const icons = await asyncMap(iconDirData.svgFilePaths, extractIconFromFile);
+  icons.sort((a, b) => a.name.localeCompare(b.name));
+
   const license = await getLicenseContent(iconDirData.path);
 
   log.info(`Parsed icon set ${iconDirData.name}`);

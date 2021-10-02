@@ -6,8 +6,8 @@ beforeEach(() => {
   mock({
     'test-input': {
       'mat-test-1': {
-        'icon1.svg': '<svg><g></g></svg>',
         'icon2.svg': '<svg><g><rect></rect></g></svg>',
+        'icon1.svg': '<svg><g></g></svg>',
         'LICENSE.txt': 'license content'
       },
       'mat-test-2': {
@@ -51,10 +51,11 @@ describe('icon set parser', () => {
       });
   });
 
-  test('should set correct icon set names', () => {
+  test('should set correct and sored icon set names', () => {
     return parser.parseIconSets()
       .then(iconSets => {
         expect(iconSets[0].name).toBe('mat-test-1');
+        expect(iconSets[1].name).toBe('mat-test-2');
       });
   });
 
