@@ -2,6 +2,9 @@
 
 A CLI utility for generating packed SVG icons and TS types and exports for usage in other projects.
 
+[![License](https://img.shields.io/npm/l/noce-svg-icon-preparer.svg)](https://www.npmjs.com/package/noce-svg-icon-preparer)
+![npm](https://img.shields.io/npm/v/noce-svg-icon-preparer)
+
 ## Reasoning
 
 This is a tool born out of necessity to pack SVG icons in a certain way to be consumed by a Angular project.
