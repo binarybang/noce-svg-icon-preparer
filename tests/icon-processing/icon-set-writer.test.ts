@@ -5,56 +5,54 @@ import {IconPreparerError} from '../../src/utils/preparer-error';
 import fs from 'fs';
 import {DOMParser} from 'xmldom';
 
+let writer: IconSetWriter;
+let iconSetsToWrite: ParsedIconSet[];
+const parser = new DOMParser();
+
 beforeEach(() => {
   mock({
     'output-dir': {
     }
   });
+
+  writer = new IconSetWriter('./output-dir', false);
+  iconSetsToWrite = [
+    {
+      'name': 'mat-test-1',
+      'license': 'license content',
+      'icons': [
+        {
+          'name': 'icon1',
+          'content': '<svg viewBox="0 0 10 10"><g></g></svg>'
+        },
+        {
+          'name': 'icon2',
+          'content': '<svg><g><rect></rect></g></svg>'
+        }
+      ]
+    },
+    {
+      'name': 'mat-test-2',
+      'license': null,
+      'icons': [
+        {
+          'name': 'icon21',
+          'content': '<svg viewBox="0 0 10 10"><g></g></svg>'
+        },
+        {
+          'name': 'icon22',
+          'content': '<svg viewBox="0 0 10 10"><g><rect></rect></g></svg>'
+        },
+        {
+          'name': 'icon23',
+          'content': '<svg viewBox="0 0 10 10"><g></g></svg>'
+        }
+      ]
+    }
+  ];
 });
 
 describe('icon set writer', () => {
-  let writer: IconSetWriter;
-  let iconSetsToWrite: ParsedIconSet[];
-  const parser = new DOMParser();
-
-  beforeEach(() => {
-    writer = new IconSetWriter('./output-dir', false);
-    iconSetsToWrite = [
-      {
-        'name': 'mat-test-1',
-        'license': 'license content',
-        'icons': [
-          {
-            'name': 'icon1',
-            'content': '<svg viewBox="0 0 10 10"><g></g></svg>'
-          },
-          {
-            'name': 'icon2',
-            'content': '<svg><g><rect></rect></g></svg>'
-          }
-        ]
-      },
-      {
-        'name': 'mat-test-2',
-        'license': null,
-        'icons': [
-          {
-            'name': 'icon21',
-            'content': '<svg viewBox="0 0 10 10"><g></g></svg>'
-          },
-          {
-            'name': 'icon22',
-            'content': '<svg viewBox="0 0 10 10"><g><rect></rect></g></svg>'
-          },
-          {
-            'name': 'icon23',
-            'content': '<svg viewBox="0 0 10 10"><g></g></svg>'
-          }
-        ]
-      }
-    ];
-  });
-
   test('should be created successfully', () => {
     expect(writer).toBeInstanceOf(IconSetWriter);
   });

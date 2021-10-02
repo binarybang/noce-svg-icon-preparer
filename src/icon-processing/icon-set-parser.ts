@@ -7,6 +7,10 @@ import {asyncFilter, asyncMap, asyncMapNotNull} from '../utils/async-ops';
 import {directoryExists, fileExists, fileExistsAndIsSvg} from '../utils/file-checks';
 import {LICENSE_FILE_NAMES} from '../utils/constants';
 
+/**
+ * Scans directory to search for SVG files and returns collected data about them.
+ * @param iconDirPath Directory to search in.
+ */
 async function scanSvgIcons(iconDirPath: string): Promise<IconDirData | null> {
   if (await directoryExists(iconDirPath)) {
     const dirContents = (await fs.readdir(iconDirPath)).map(name => path.join(iconDirPath, name));
@@ -22,6 +26,10 @@ async function scanSvgIcons(iconDirPath: string): Promise<IconDirData | null> {
   }
 }
 
+/**
+ * Created parsed icon data from specified icon file.
+ * @param svgFilePath Path to icon file.
+ */
 async function extractIconFromFile(svgFilePath: string): Promise<ParsedIcon> {
   const content = await fs.readFile(svgFilePath, {
     encoding: 'utf-8',
@@ -33,6 +41,11 @@ async function extractIconFromFile(svgFilePath: string): Promise<ParsedIcon> {
   };
 }
 
+/**
+ * Gets content of a license file in the specified directory
+ * if there is one.
+ * @param dirPath Directory to search in.
+ */
 async function getLicenseContent(dirPath: string): Promise<string | null> {
   for (const name of LICENSE_FILE_NAMES) {
     const licenseFilePath = path.join(dirPath, name);
@@ -43,6 +56,10 @@ async function getLicenseContent(dirPath: string): Promise<string | null> {
   return null;
 }
 
+/**
+ * Extracts icon data from specified directory.
+ * @param iconDirData Data that represents directory and its SVG files.
+ */
 async function extractIconDir(iconDirData: IconDirData): Promise<ParsedIconSet> {
   log.info(`Parsing icon set ${iconDirData.name}`);
 
