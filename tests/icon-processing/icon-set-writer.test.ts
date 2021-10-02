@@ -3,7 +3,7 @@ import {IconSetWriter} from '../../src/icon-processing/icon-set-writer';
 import {ParsedIconSet} from '../../src/icon-processing/models';
 import {IconPreparerError} from '../../src/utils/preparer-error';
 import fs from 'fs';
-import {DOMParser} from 'xmldom';
+import {DOMParser} from '@xmldom/xmldom';
 
 let writer: IconSetWriter;
 let iconSetsToWrite: ParsedIconSet[];
