@@ -1,6 +1,6 @@
 {
   "name": "noce-svg-icon-preparer",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "dist/index.js",
   "license": "MIT",
   "description": "A utility to prepare SVG icons for use in icon set components.",

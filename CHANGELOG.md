@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/binarybang/noce-svg-icon-preparer/compare/v0.1.4...v0.1.5) (2021-10-02)
+
+
+### Bug Fixes
+
+* move @types/mock-fs to devDependencies ([fe5b3d5](https://github.com/binarybang/noce-svg-icon-preparer/commit/fe5b3d57f73032237736db0ca4e91051826e5577))
+
 ### [0.1.4](https://github.com/binarybang/noce-svg-icon-preparer/compare/v0.1.3...v0.1.4) (2021-10-02)
 
 
