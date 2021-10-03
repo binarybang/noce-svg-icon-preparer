@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6](https://github.com/binarybang/noce-svg-icon-preparer/compare/v0.1.5...v0.1.6) (2021-10-03)
+
+
+### Features
+
+* make --code-output-dir parameter optional ([d516a09](https://github.com/binarybang/noce-svg-icon-preparer/commit/d516a0926effe02124a574c98def9e814b0a6ff3))
+
+
+### Bug Fixes
+
+* add spaces for union type declarations ([95a13eb](https://github.com/binarybang/noce-svg-icon-preparer/commit/95a13ebfe5ce52baa4510eafd0c225fd7c37355d))
+
 ### [0.1.5](https://github.com/binarybang/noce-svg-icon-preparer/compare/v0.1.4...v0.1.5) (2021-10-02)
 
 
