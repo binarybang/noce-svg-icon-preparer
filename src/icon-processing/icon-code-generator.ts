@@ -78,7 +78,7 @@ function generateTypeForIconSet(iconSetName: string, iconNames: string[]): strin
   const iconSetType = generateIconSetTypeName(iconSetName);
   const iconNamePrefix = iconSetName.toLowerCase();
   const preparedIconNames = iconNames.map(n => `${iconNamePrefix}/${n}`);
-  return `export type ${iconSetType} = ${makeLiteralString(preparedIconNames, '|')};`;
+  return `export type ${iconSetType} = ${makeLiteralString(preparedIconNames, ' | ')};`;
 }
 
 function filterValidIconNames(iconSet: ParsedIconSet): string[] {
