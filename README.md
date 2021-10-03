@@ -66,7 +66,8 @@ noce-prepare-svg-icons -id ./icon-input -iod ./icon-output -cod ./code-output
 
 `-iod, --icon-output-dir <directory>`: Path to directory that will contain generated SVG files
 
-`-cod, --code-output-dir <directory>`: Path to directory that will contain generated TS types and exports
+`-cod, --code-output-dir <directory>`: Path to directory that will contain generated TS types and exports.
+If option is not specified, TS file will not be generated.
 
 `-cof, --code-output-file <file-name>`: Name of the file that will contain generated TS types and exports. Default:
 `icon-sets.ts`

@@ -15,7 +15,9 @@ async function runProgram() {
     .description('Prepares icon files in icon set directories for usage in Noce packages')
     .requiredOption('-id, --input-dir <directory>', 'Path to directory that contains the icon sets you want to prepare')
     .requiredOption('-iod, --icon-output-dir <directory>', 'Path to directory that will contain generated SVG files')
-    .requiredOption('-cod, --code-output-dir <directory>', 'Path to directory that will contain generated TS types and exports')
+    .option(
+      '-cod, --code-output-dir <directory>',
+      'Path to directory that will contain generated TS types and exports. If option is not specified, TS file will not be generated')
     .option('-cof, --code-output-file <file-name>', 'Name of the file that will contain generated TS types and exports', 'icon-sets.ts')
     .option('-gip, --global-icon-prefix <prefix>', 'Prefix for usage in type names and export variable names', 'Noce')
     .option('-pp, --pretty-print', 'Specifies whether to pretty-print SVG output', true)
@@ -31,8 +33,10 @@ async function runProgram() {
   const iconWriter = new IconSetWriter(options.iconOutputDir, options.prettyPrint);
   await iconWriter.writeIconSetsToFile(iconSets);
 
-  const iconCodeGenerator = new IconCodeGenerator(options.codeOutputDir, options.codeOutputFile);
-  await iconCodeGenerator.writeGeneratedCodeToFile(iconSets, options.globalIconPrefix);
+  if (options.codeOutputDir) {
+    const iconCodeGenerator = new IconCodeGenerator(options.codeOutputDir, options.codeOutputFile);
+    await iconCodeGenerator.writeGeneratedCodeToFile(iconSets, options.globalIconPrefix);
+  }
 
 }
 
