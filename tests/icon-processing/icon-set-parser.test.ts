@@ -43,55 +43,42 @@ describe('icon set parser', () => {
       .toThrow(IconPreparerError);
   });
 
-  test('should parse all available icon sets', () => {
-    return parser.parseIconSets()
-      .then(iconSets => {
-        expect(iconSets).toBeTruthy();
-        expect(iconSets).toHaveLength(3);
-      });
+  test('should parse all available icon sets', async () => {
+    const iconSets = await parser.parseIconSets();
+    expect(iconSets).toBeTruthy();
+    expect(iconSets).toHaveLength(3);
   });
 
-  test('should set correct and sored icon set names', () => {
-    return parser.parseIconSets()
-      .then(iconSets => {
-        expect(iconSets[0].name).toBe('mat-test-1');
-        expect(iconSets[1].name).toBe('mat-test-2');
-      });
+  test('should set correct and sored icon set names', async () => {
+    const iconSets = await parser.parseIconSets();
+    expect(iconSets[0].name).toBe('mat-test-1');
+    expect(iconSets[1].name).toBe('mat-test-2');
   });
 
-  test('should parse license if available', () => {
-    return parser.parseIconSets()
-      .then(iconSets => {
-        expect(iconSets[0].license).toBe('license content');
-        expect(iconSets[1].license).toBe('license content');
-      });
+  test('should parse license if available', async () => {
+    const iconSets = await parser.parseIconSets();
+    expect(iconSets[0].license).toBe('license content');
+    expect(iconSets[1].license).toBe('license content');
   });
 
-  test('should not have license if license file is not available', () => {
-    return parser.parseIconSets()
-      .then(iconSets => {
-        expect(iconSets[2].license).toBeNull();
-      });
+  test('should not have license if license file is not available', async () => {
+    const iconSets = await parser.parseIconSets();
+    expect(iconSets[2].license).toBeNull();
   });
 
-  test('should have correct icon counts in sets', () => {
-    return parser.parseIconSets()
-      .then(iconSets => {
-        expect(iconSets[0].icons.length).toBe(2);
-        expect(iconSets[1].icons.length).toBe(3);
-      });
+  test('should have correct icon counts in sets', async () => {
+    const iconSets = await parser.parseIconSets();
+    expect(iconSets[0].icons.length).toBe(2);
+    expect(iconSets[1].icons.length).toBe(3);
   });
 
-  test('should have correct icon names', () => {
-    return parser.parseIconSets()
-      .then(iconSets => {
-        expect(iconSets[0].icons[0].name).toBe('icon1');
-      });
+  test('should have correct icon names', async () => {
+    const iconSets = await parser.parseIconSets();
+    expect(iconSets[0].icons[0].name).toBe('icon1');
   });
-  test('should have correct icon content', () => {
-    return parser.parseIconSets()
-      .then(iconSets => {
-        expect(iconSets[0].icons[0].content).toBe('<svg><g></g></svg>');
-      });
+
+  test('should have correct icon content', async () => {
+    const iconSets = await parser.parseIconSets();
+    expect(iconSets[0].icons[0].content).toBe('<svg><g></g></svg>');
   });
 });

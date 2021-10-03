@@ -65,43 +65,33 @@ describe('icon code generator', () => {
   });
 
   test('should generate types for icon sets', async () => {
-    return generator.writeGeneratedCodeToFile(iconSetsToWrite)
-      .then(() => {
-        const generatedCode = fs.readFileSync('./output-dir/models.ts', {encoding: 'utf-8'});
-        expect(generatedCode).toContain('export type Mattest1IconSet = \'mat-test-1/icon1\';');
-        expect(generatedCode).toContain('export type Mattest2IconSet = \'mat-test-2/icon21\' | \'mat-test-2/icon22\';');
-      });
+    await generator.writeGeneratedCodeToFile(iconSetsToWrite);
+    const generatedCode = fs.readFileSync('./output-dir/models.ts', {encoding: 'utf-8'});
+    expect(generatedCode).toContain('export type Mattest1IconSet = \'mat-test-1/icon1\';');
+    expect(generatedCode).toContain('export type Mattest2IconSet = \'mat-test-2/icon21\' | \'mat-test-2/icon22\';');
   });
 
   test('should generate union type for icon sets', async () => {
-    return generator.writeGeneratedCodeToFile(iconSetsToWrite)
-      .then(() => {
-        const generatedCode = fs.readFileSync('./output-dir/models.ts', {encoding: 'utf-8'});
-        expect(generatedCode).toContain('export type NoceIcon = \'Mattest1IconSet\' | \'Mattest2IconSet\';');
-      });
+    await generator.writeGeneratedCodeToFile(iconSetsToWrite);
+    const generatedCode = fs.readFileSync('./output-dir/models.ts', {encoding: 'utf-8'});
+    expect(generatedCode).toContain('export type NoceIcon = \'Mattest1IconSet\' | \'Mattest2IconSet\';');
   });
 
   test('should generate union type with custom prefix if specified', async () => {
-    return generator.writeGeneratedCodeToFile(iconSetsToWrite, 'TestPrefix')
-      .then(() => {
-        const generatedCode = fs.readFileSync('./output-dir/models.ts', {encoding: 'utf-8'});
-        expect(generatedCode).toContain('export type TestprefixIcon = \'Mattest1IconSet\' | \'Mattest2IconSet\';');
-      });
+    await generator.writeGeneratedCodeToFile(iconSetsToWrite, 'TestPrefix');
+    const generatedCode = fs.readFileSync('./output-dir/models.ts', {encoding: 'utf-8'});
+    expect(generatedCode).toContain('export type TestprefixIcon = \'Mattest1IconSet\' | \'Mattest2IconSet\';');
   });
 
   test('should generate exported icon set names', async () => {
-    return generator.writeGeneratedCodeToFile(iconSetsToWrite)
-      .then(() => {
-        const generatedCode = fs.readFileSync('./output-dir/models.ts', {encoding: 'utf-8'});
-        expect(generatedCode).toContain('export const noceIconSets = [\'mat-test-1\', \'mat-test-2\'];');
-      });
+    await generator.writeGeneratedCodeToFile(iconSetsToWrite);
+    const generatedCode = fs.readFileSync('./output-dir/models.ts', {encoding: 'utf-8'});
+    expect(generatedCode).toContain('export const noceIconSets = [\'mat-test-1\', \'mat-test-2\'];');
   });
 
   test('should generate exported icon set names with custom prefix if specified', async () => {
-    return generator.writeGeneratedCodeToFile(iconSetsToWrite, 'TestPrefix')
-      .then(() => {
-        const generatedCode = fs.readFileSync('./output-dir/models.ts', {encoding: 'utf-8'});
-        expect(generatedCode).toContain('export const testprefixIconSets = [\'mat-test-1\', \'mat-test-2\'];');
-      });
+    await generator.writeGeneratedCodeToFile(iconSetsToWrite, 'TestPrefix');
+    const generatedCode = fs.readFileSync('./output-dir/models.ts', {encoding: 'utf-8'});
+    expect(generatedCode).toContain('export const testprefixIconSets = [\'mat-test-1\', \'mat-test-2\'];');
   });
 });

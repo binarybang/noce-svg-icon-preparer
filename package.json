@@ -36,7 +36,7 @@
     "build:prod": "yarn run build:clean && tsc -p tsconfig.prod.json",
     "lint": "yarn run eslint .",
     "lint:fix": "yarn run eslint . --fix",
-    "test": "yarn jest",
+    "test": "yarn jest --silent",
     "test:coverage": "yarn jest --coverage",
     "release:major": "yarn run standard-version --release-as major",
     "release:minor": "yarn run standard-version --release-as minor",

@@ -68,55 +68,43 @@ describe('icon set writer', () => {
       .toThrow(IconPreparerError);
   });
 
-  test('should write all available icon sets', () => {
-    return writer.writeIconSetsToFile(iconSetsToWrite)
-      .then(() => {
-        const contents = fs.readdirSync('./output-dir');
-        expect(contents.length).toBe(2);
-      });
+  test('should write all available icon sets', async () => {
+    await writer.writeIconSetsToFile(iconSetsToWrite);
+    const contents = fs.readdirSync('./output-dir');
+    expect(contents.length).toBe(2);
   });
 
-  test('should use correct names for icon set files', () => {
-    return writer.writeIconSetsToFile(iconSetsToWrite)
-      .then(() => {
-        const contents = fs.readdirSync('./output-dir');
-        expect(contents[0]).toBe('mat-test-1.svg');
-      });
+  test('should use correct names for icon set files', async () => {
+    await writer.writeIconSetsToFile(iconSetsToWrite);
+    const contents = fs.readdirSync('./output-dir');
+    expect(contents[0]).toBe('mat-test-1.svg');
   });
 
-  test('should write all valid icons into icon set files', () => {
-    return writer.writeIconSetsToFile(iconSetsToWrite)
-      .then(() => {
-        const contents = fs.readFileSync('./output-dir/mat-test-2.svg', {encoding: 'utf-8'});
-        const parsedContents = parser.parseFromString(contents);
-        expect(parsedContents.getElementsByTagName('symbol').length).toBe(3);
-      });
+  test('should write all valid icons into icon set files', async () => {
+    await writer.writeIconSetsToFile(iconSetsToWrite);
+    const contents = fs.readFileSync('./output-dir/mat-test-2.svg', {encoding: 'utf-8'});
+    const parsedContents = parser.parseFromString(contents);
+    expect(parsedContents.getElementsByTagName('symbol').length).toBe(3);
   });
 
-  test('should skip icons without viewBox', () => {
-    return writer.writeIconSetsToFile(iconSetsToWrite)
-      .then(() => {
-        const contents = fs.readFileSync('./output-dir/mat-test-1.svg', {encoding: 'utf-8'});
-        const parsedContents = parser.parseFromString(contents);
-        expect(parsedContents.getElementsByTagName('symbol').length).toBe(1);
-      });
+  test('should skip icons without viewBox', async () => {
+    await writer.writeIconSetsToFile(iconSetsToWrite);
+    const contents = fs.readFileSync('./output-dir/mat-test-1.svg', {encoding: 'utf-8'});
+    const parsedContents = parser.parseFromString(contents);
+    expect(parsedContents.getElementsByTagName('symbol').length).toBe(1);
   });
 
-  test('should use correct ids for icon symbols', () => {
-    return writer.writeIconSetsToFile(iconSetsToWrite)
-      .then(() => {
-        const contents = fs.readFileSync('./output-dir/mat-test-1.svg', {encoding: 'utf-8'});
-        const parsedContents = parser.parseFromString(contents);
-        expect(parsedContents.getElementsByTagName('symbol')[0].getAttribute('id')).toBe('icon1');
-      });
+  test('should use correct ids for icon symbols', async () => {
+    await writer.writeIconSetsToFile(iconSetsToWrite);
+    const contents = fs.readFileSync('./output-dir/mat-test-1.svg', {encoding: 'utf-8'});
+    const parsedContents = parser.parseFromString(contents);
+    expect(parsedContents.getElementsByTagName('symbol')[0].getAttribute('id')).toBe('icon1');
   });
 
-  test('should include license content if available', () => {
-    return writer.writeIconSetsToFile(iconSetsToWrite)
-      .then(() => {
-        const contents = fs.readFileSync('./output-dir/mat-test-1.svg', {encoding: 'utf-8'});
-        expect(contents).toContain('<!--license content-->');
-      });
+  test('should include license content if available', async () => {
+    await writer.writeIconSetsToFile(iconSetsToWrite);
+    const contents = fs.readFileSync('./output-dir/mat-test-1.svg', {encoding: 'utf-8'});
+    expect(contents).toContain('<!--license content-->');
   });
 
 });
