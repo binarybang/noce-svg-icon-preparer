@@ -52,6 +52,10 @@ beforeEach(() => {
   ];
 });
 
+afterEach(() => {
+  mock.restore();
+});
+
 describe('icon set writer', () => {
   test('should be created successfully', () => {
     expect(writer).toBeInstanceOf(IconSetWriter);

@@ -11,6 +11,10 @@ beforeEach(() => {
   });
 });
 
+afterEach(() => {
+  mock.restore();
+});
+
 describe('icon code generator', () => {
   let generator: IconCodeGenerator;
   let iconSetsToWrite: ParsedIconSet[];
